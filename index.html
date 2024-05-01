@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karaoke</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 創建一個新的 WebSocket 對象，連接到你的 WebSocket 伺服器
+            var socket = new WebSocket('ws://localhost:8080');
+
+            // 連接開啟時觸發
+            socket.onopen = function() {
+                console.log('WebSocket connection established');
+                socket.send('Hello Server!'); // 向服務器發送消息
+            };
+
+            // 收到消息時觸發
+            socket.onmessage = function(event) {
+                console.log('Message from server ', event.data);
+            };
+
+            // 連接關閉時觸發
+            socket.onclose = function(event) {
+                console.log('WebSocket connection closed');
+            };
+
+            // 發生錯誤時觸發
+            socket.onerror = function(error) {
+                console.error('WebSocket error: ' + error.message);
+            };
+        });
+    </script>
+</head>
+<body>
+    <body bgcolor="#FFFBC4">
+        <button>Create A Room First!!</button>
+
+
+    
+</body>
+</html>
