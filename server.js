@@ -26,6 +26,10 @@ app.get("/", (req, res) => {
 //room
 app.use("/api/room", require("./router/room"));
 
+//song
+app.use("/api/song", require("./router/song"));
+
+
 
 server.on('upgrade', function upgrade(request, socket, head) {
     // 从 HTTP 请求头部获取 token
