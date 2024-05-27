@@ -9,8 +9,12 @@ const wss = new Server({ server });
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = '1234';
 
+const dotenv = require("dotenv").config();
+const connectDb = require("./config/dbConnection");
+connectDb();
 
-
+const connectRedis = require("./config/redisConnection");
+connectRedis();
 
 const path = require("path");
 const PORT = process.env.PORT || 8080;

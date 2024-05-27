@@ -1,6 +1,6 @@
 
 //假清單
-const songList = [
+const songLists = [
     { "song.id": "bad day", "author": "bonnie" },
     { "song.id": "bad day2", "author": "bonnie2" },
     { "song.id": "bad day3", "author": "bonnie3" },
@@ -9,8 +9,10 @@ const songList = [
 
 const songSample = { "song.id": "bad day" };
 
-const song = (req, res) => {
-    res.status(200).json(songList)
+const songList = (req, res) => {
+    res.status(200).json(songLists)
+
+
 }
 
 const songOrder = (req, res) => {
@@ -27,7 +29,7 @@ const songPut = (req, res) => {
 }
 
 const songSearch = (req, res) => {
-    res.status(200).json(songList)
+    res.status(200).json(songLists)
 }
 
-module.exports = { song, songOrder, songCut, songSearch, songPut }
+module.exports = { songList, songOrder, songCut, songSearch, songPut }
