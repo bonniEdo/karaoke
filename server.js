@@ -1,5 +1,7 @@
 const express = require("express");
 const { Server } = require('ws');
+const bodyParser = require('body-parser');
+
 const http = require('http');
 const app = express();
 const server = http.createServer(app);
@@ -20,6 +22,7 @@ const path = require("path");
 const PORT = process.env.PORT || 8080;
 
 
+app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, './index.html'))

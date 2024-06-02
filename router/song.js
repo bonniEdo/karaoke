@@ -1,13 +1,16 @@
 // 取得 已點歌曲
 const express = require("express");
 const router = express.Router();
-const { songList, songOrder, songCut, songPut, songSearch } = require("../controllers/songController")
+const { addSong, songList, songOrder, getSongOrder, songCut, songPut, songSearch } = require("../controllers/songController")
+
+//匯入歌單
+router.route("/add").post(addSong)
 
 //取得已點清單
 router.route("/list").get(songList)
 
 //點歌取消歌
-router.route("/order").post(songOrder).delete(songCut)
+router.route("/order").get(getSongOrder).post(songOrder).delete(songCut)
 
 //插歌
 router.route("/put").post(songPut)
