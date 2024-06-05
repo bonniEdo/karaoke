@@ -62,7 +62,7 @@ const songList = async (req, res) => {
 // 點歌
 const songOrder = async (req, res) => {
     try {
-        const { name, artist } = req.query;
+        const { name, artist } = req.body;
 
         // 構建查詢條件
         let query = {};
@@ -73,24 +73,21 @@ const songOrder = async (req, res) => {
             query.artist = { $regex: artist, $options: 'i' }; // 大小寫不敏感
         }
 
-        //     const songs = await Song.find(query);
-        //     res.status(200).json(songs);
-        // } catch (error) {
-        //     console.error('Error searching for songs:', error);
-        //     res.status(500).json({ message: 'Server error', error });
-        // }
-        const songs = await Song.find(query);
+        // 查找符合條件的第一首歌曲
+        const song = await Song.findOne(query);
 
-        if (songs.length === 0) {
-            return res.status(404).json({ message: 'No songs found matching the criteria' });
+        if (!song) {
+            return res.status(404).json({ message: 'No song found matching the criteria' });
         }
 
         // 將找到的歌曲添加到播放隊列
-        songs.forEach(song => playerService.addSongToQueue(song));
+        playerService.addSongToQueue(song);
 
-        res.status(200).json({ message: 'Songs added to queue', songs });
+        console.log('Song added to queue:', song);
+
+        res.status(200).json({ message: 'Song added to queue', song });
     } catch (error) {
-        console.error('Error searching for songs:', error);
+        console.error('Error searching for song:', error);
         res.status(500).json({ message: 'Server error', error });
     }
 };
@@ -99,6 +96,11 @@ const songOrder = async (req, res) => {
 const getSongOrder = async (req, res) => {
     try {
         const queue = playerService.getPlayQueue();
+        if (queue.length === 0) {
+            console.log('No songs in the play queue');
+        } else {
+            console.log('Songs in the play queue:', queue);
+        }
         res.status(200).json(queue);
     } catch (error) {
         console.error('Error fetching song order:', error);
@@ -123,6 +125,7 @@ const songCut = (req, res) => {
         res.status(500).json({ message: 'Server error', error });
     }
 }
+
 
 
 const songPut = (req, res) => {

@@ -7,6 +7,8 @@ const addSongToQueue = (song) => {
     playQueue.push(song);
     // 根據 timestamp 進行排序
     playQueue.sort((a, b) => a.timestamp - b.timestamp);
+    console.log('Song added to queue:', song);
+    console.log('Current playQueue:', playQueue);
 };
 
 const getNextSong = () => {
@@ -27,6 +29,7 @@ const clearCurrentSong = () => {
     currentSong = null;
 };
 const getPlayQueue = () => {
+    console.log('Returning playQueue:', playQueue);
     return playQueue;
 };
 
